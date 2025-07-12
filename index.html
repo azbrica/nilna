@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
       color: #00ff99;
       font-family: 'Courier New', monospace;
       text-align: center;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     .fireworks {
       position: fixed;
@@ -47,6 +46,11 @@
       margin-bottom: 2rem;
       background-color: #001f1f;
     }
+    .scroll-hint {
+      font-size: 0.9rem;
+      color: #00ffaa;
+      margin-bottom: 1rem;
+    }
     .audio-player {
       border-radius: 10px;
       padding: 1rem;
@@ -58,10 +62,15 @@
     }
     .cover {
       width: 100%;
-      max-height: 200px;
+      max-height: 140px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 1rem;
+    }
+    @media screen and (max-width: 600px) {
+      .cover {
+        max-height: 120px;
+      }
     }
     @keyframes fadeIn {
       from { opacity: 0 }
@@ -81,9 +90,10 @@
       17 agustus ini bukan cuma hari kemerdekaan negara ygy wkwk tapi juga hari lahir org yg luar biasa..asekk 😂 apasi bahasanya.. spesial limited gasi wkwk<br>
       semoga Allah tambahin berkah umurnya.. diluaskan dan dicukupkan rezekinya.. ditenangkan pikirannya.. dibahagiakan hatinya.. Allah kabulkan semua doanya.. semua hajatnya.. dimudahkan semua urusannya.. semoga makin mutqin hafalanya.. tambah istiqomah murojaahnya wkwk eh iya pas itu barusan gelondong ya kan? khatamn bu mudah, aku liat status bpk lah kok wkwk batiba khataman.. emang beda si bro satu ini.. semoga nular dah ya Allah aamiin 😭 semoga ilmunya tambah manfaat barokah.. semoga hmm apalagi ya 😂 ya semoga tambah kuat jadi diri sendiri wkwk.. diluaskan sabarnya.. emng idup tu kan ga selalu hmm bisa dijelasin gitu kan, ga semua yg kita pendem bisa dijelasin keorg lain.. apasi ini dah dah gitu aja wkwk, ini klok ditulis semua ga cukup kyknya 🙏😂 pokonya semoga semuanya baik² aja lah ya.. trus sehat sehat dah aamiin.. 🤲</p>
     </div>
+    <div class="scroll-hint">⬇️ Gulir ke bawah untuk dengar musik 🎶</div>
     <div class="audio-player">
       <img src="cover.jpg" alt="cover lagu" class="cover" />
-      <div><strong>About You </strong></div>
+      <div><strong>About You</strong></div>
       <audio controls>
         <source src="aboutyou.mp3" type="audio/mpeg">
         Browsermu tidak mendukung pemutar audio.
@@ -159,6 +169,7 @@
     document.body.addEventListener("click", () => {
       document.querySelector(".title").style.display = "none";
       document.getElementById("mainContent").style.display = "block";
+      document.body.style.overflowY = "auto"; // biar bisa digeser setelah klik
     }, { once: true });
   </script>
 </body>
