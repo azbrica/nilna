@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hadiah Digital Nilna</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: #00ff99;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      overflow: hidden;
+    }
+    .fireworks {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .title {
+      z-index: 2;
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      font-size: 1.5rem;
+      white-space: nowrap;
+    }
+    #tapToOpen {
+      font-size: 0.9rem;
+      margin-top: 20px;
+      display: block;
+    }
+    .content {
+      display: none;
+      position: relative;
+      z-index: 3;
+      padding: 2rem;
+      animation: fadeIn 2s ease forwards;
+    }
+    .message-box {
+      border: 2px dotted #00ff99;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      background-color: #001f1f;
+    }
+    .audio-player {
+      border-radius: 10px;
+      padding: 1rem;
+      background-color: #111;
+      box-shadow: 0 0 20px #00ff99;
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
+    }
+    .cover {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="fireworks" id="fireworks"></canvas>
+  <div class="title">
+    <h2 id="typing-text"></h2>
+    <span id="tapToOpen">Tap untuk membuka hadiah digitalmu...</span>
+  </div>
+  <div class="content" id="mainContent">
+    <div class="message-box">
+      <p>barokallah fii umrik ya zah 😂<br><br>
+      17 agustus ini bukan cuma hari kemerdekaan negara ygy wkwk tapi juga hari lahir org yg luar biasa..asekk 😂 apasi bahasanya.. spesial limited gasi wkwk<br>
+      semoga Allah tambahin berkah umurnya.. diluaskan dan dicukupkan rezekinya.. ditenangkan pikirannya.. dibahagiakan hatinya.. Allah kabulkan semua doanya.. semua hajatnya.. dimudahkan semua urusannya.. semoga makin mutqin hafalanya.. tambah istiqomah murojaahnya wkwk eh iya pas itu barusan gelondong ya kan? khatamn bu mudah, aku liat status bpk lah kok wkwk batiba khataman.. emang beda si bro satu ini.. semoga nular dah ya Allah aamiin 😭 semoga ilmunya tambah manfaat barokah.. semoga hmm apalagi ya 😂 ya semoga tambah kuat jadi diri sendiri wkwk.. diluaskan sabarnya.. emng idup tu kan ga selalu hmm bisa dijelasin gitu kan, ga semua yg kita pendem bisa dijelasin keorg lain.. apasi ini dah dah gitu aja wkwk, ini klok ditulis semua ga cukup kyknya 🙏😂 pokonya semoga semuanya baik² aja lah ya.. trus sehat sehat dah aamiin.. 🤲</p>
+    </div>
+    <div class="audio-player">
+      <img src="cat-cover.jpg" alt="cover lagu" class="cover" />
+      <div><strong>About You - Special Track</strong></div>
+      <audio controls>
+        <source src="aboutyou.mp3" type="audio/mpeg">
+        Browsermu tidak mendukung pemutar audio.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    // Fireworks animation
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    let fireworks = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function Firework() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height;
+      this.radius = Math.random() * 3 + 1;
+      this.color = "hsl(" + Math.floor(Math.random() * 360) + ", 100%, 50%)";
+      this.vx = Math.random() * 6 - 3;
+      this.vy = Math.random() * -7 - 5;
+      this.alpha = 1;
+      this.update = function () {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.01;
+      };
+      this.draw = function () {
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      };
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (Math.random() < 0.1) {
+        fireworks.push(new Firework());
+      }
+      fireworks = fireworks.filter(f => f.alpha > 0);
+      fireworks.forEach(f => {
+        f.update();
+        f.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Typing effect
+    const typingText = "barokallah fii umrik nilna";
+    const typingEl = document.getElementById("typing-text");
+    let index = 0;
+
+    function typeWriter() {
+      if (index < typingText.length) {
+        typingEl.innerHTML += typingText.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    typeWriter();
+
+    // Tap to open
+    document.body.addEventListener("click", () => {
+      document.querySelector(".title").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    }, { once: true });
+  </script>
+</body>
+</html>
